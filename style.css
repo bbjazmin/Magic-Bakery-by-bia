@@ -1,0 +1,327 @@
+/* ============================================================
+   MAGIC BAKERY – STYLE.CSS
+
+   TARTALOMJEGYZÉK (a nevére rákereshetsz Ctrl+F-fel):
+   1. SZÍNEK és ALAPOK
+   2. MENÜ
+   3. FŐOLDAL
+   4. GOMBOK
+   5. KÁRTYÁK
+   6. RECEPT
+   7. FOOTER
+   8. MOBIL (reszponzív)
+   ============================================================ */
+
+
+/* ===== 1. SZÍNEK és ALAPOK ===== */
+
+/* A SZÍNEK. */
+:root {
+    --fo-szin: #d86b91;        /* fő rózsaszín: címek, gombok */
+    --fo-szin-sotet: #b95277;  /* sötétebb rózsaszín: gomb fölé húzáskor */
+    --vilagos: #f4a9bf;        /* világos rózsaszín: kis gombok */
+    --halvany: #fff0f5;        /* halvány rózsaszín háttér */
+    --hatter: #fff8f5;         /* az oldal háttere */
+    --szoveg: #4b3430;         /* szöveg barnásszín */
+    --feher: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Quicksand", Arial, sans-serif; /* nincs net: Arial lesz */
+    background-color: var(--hatter);
+    color: var(--szoveg);
+    line-height: 1.6;
+}
+
+/* Egyszerre csak az látszik, aminek van .lathato osztálya */
+.oldal { display: none; }
+.oldal.lathato { display: block; }
+
+
+/* ===== 2. MENÜ ===== */
+
+header {
+    background-color: var(--feher);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* enyhe árnyék */
+    position: sticky;   /* görgetéskor fent ragad */
+    top: 0;
+    z-index: 10;
+}
+
+.navbar {
+    max-width: 1000px;
+    margin: auto;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--fo-szin);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+/* A menügombok úgy néznek ki, mint egy link */
+.nav-gomb {
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--szoveg);
+    cursor: pointer;
+}
+
+.nav-gomb:hover,
+.nav-gomb.aktiv {
+    color: var(--fo-szin);
+}
+
+
+/* ===== 3. FŐOLDAL ===== */
+
+.hero {
+    min-height: 500px;
+    max-width: 1000px;
+    margin: auto;
+    padding: 60px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.small-title {
+    color: var(--fo-szin);
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.hero h1 {
+    font-size: 52px;
+    line-height: 1.1;
+    margin-bottom: 18px;
+}
+
+.hero h1 span {
+    color: var(--fo-szin);
+}
+
+.bekezdes {
+    font-size: 17px;
+    margin-bottom: 28px;
+}
+
+.hero-cake {
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;              /* kör alak */
+    background-color: #ffdce8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 120px;
+    flex-shrink: 0;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ===== 4. GOMBOK ===== */
+
+.button {
+    border: none;
+    background-color: var(--fo-szin);
+    color: var(--feher);
+    padding: 12px 26px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: 0.2s;   /* minden változás 0,2 mp alatt megy */
+}
+
+.button:hover {
+    background-color: var(--fo-szin-sotet);
+}
+
+
+/* ===== 5. KÁRTYÁK ===== */
+
+.section {
+    max-width: 1000px;
+    margin: auto;
+    padding: 60px 25px;
+}
+
+.cim {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+/* A kártyák maguktól rendeződnek 3 → 2 → 1 oszlopra */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+}
+
+.card {
+    background-color: var(--feher);
+    padding: 28px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-6px);  /* fölé húzáskor felugrik */
+}
+
+.ikon {
+    font-size: 55px;
+    margin-bottom: 8px;
+}
+
+.card h3 {
+    color: var(--fo-szin);
+    margin-bottom: 8px;
+}
+
+.card p {
+    font-size: 15px;
+    margin-bottom: 16px;
+}
+
+.card button {
+    border: none;
+    background-color: var(--vilagos);
+    color: var(--feher);
+    padding: 9px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: inherit;
+    transition: 0.2s;
+}
+
+.card button:hover {
+    background-color: var(--fo-szin);
+}
+
+
+/* ===== 6. RECEPT ===== */
+
+.recipe-section {
+    background-color: #ffe8ef;
+    padding: 60px 25px;
+    min-height: 70vh;
+}
+
+.recipe-box {
+    max-width: 700px;
+    margin: auto;
+    background-color: var(--feher);
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.recipe-box h2 {
+    color: var(--fo-szin);
+    margin-bottom: 8px;
+}
+
+.recipe-box h3 {
+    color: var(--fo-szin);
+    margin: 20px 0 8px;
+}
+
+.recipe-box ul,
+.recipe-box ol {
+    padding-left: 20px;
+    margin-bottom: 22px;
+    line-height: 1.8;
+}
+
+.recipe-box li::marker {
+    color: var(--fo-szin);  /* rózsaszín pöttyök és számok */
+}
+
+#result {
+    margin-top: 15px;
+    font-weight: bold;
+    color: var(--fo-szin);
+}
+
+
+
+
+/* ===== 7. FOOTER ===== */
+
+footer {
+    background-color: var(--szoveg);
+    color: var(--feher);
+    padding: 35px 25px;
+    text-align: center;
+}
+
+footer h3 {
+    color: var(--vilagos);
+    margin-bottom: 10px;
+}
+
+.copyright {
+    margin-top: 18px;
+    opacity: 0.7;
+    font-size: 14px;
+}
+
+
+/* ===== 8. MOBIL (reszponzív) =====
+   768px-nél keskenyebb képernyőn ez érvényesül. */
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;   /* menü egymás alá */
+        gap: 12px;
+    }
+
+    .nav-links {
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero-cake {
+        width: 200px;
+        height: 200px;
+        font-size: 90px;
+    }
+}

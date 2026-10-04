@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Magic Bakery</title>
+
+    <!-- FAVICON: a böngésző fülön látható kis ikon.. -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23ffe8ef'/><path d='M18 33 L46 33 L42 56 L22 56 Z' fill='%23c98a5e'/><path d='M24 33 L26 56 M32 33 L32 56 M40 33 L38 56' stroke='%23b3764d' stroke-width='2' stroke-linecap='round'/><path d='M14 33 Q10 21 21 21 Q23 13 32 15 Q41 13 43 21 Q54 21 50 33 Z' fill='%23e86a92'/><circle cx='32' cy='11' r='4.5' fill='%23d63031'/></svg>">
+
+    <!-- betűtípus -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">Magic Bakery</div>
+
+            <!-- JS vált a 4 "oldal" közt -->
+            <ul class="nav-links">
+                <li><button class="nav-gomb" data-oldal="fooldal" onclick="oldalValtas('fooldal')">Főoldal</button></li>
+                <li><button class="nav-gomb" data-oldal="sutik" onclick="oldalValtas('sutik')">Sütemények</button></li>
+                <li><button class="nav-gomb" data-oldal="recept" onclick="oldalValtas('recept')">Recept</button></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <!-- ===== 1. OLDAL: FŐOLDAL ===== -->
+        <section id="fooldal" class="oldal lathato">
+            <div class="hero">
+                <div class="hero-text">
+                    <p class="small-title">Egy kis varázslat minden falatban</p>
+
+                    <h1>Üdvözöl a<br><span>Magic Bakery!</span></h1>
+
+                    <p class="bekezdes">
+                        Kilenc finom sütemény, egyszerű receptekkel.
+                    </p>
+
+                    <button class="button" onclick="oldalValtas('sutik')">Felfedezem</button>
+                </div>
+
+                <div class="hero-cake">🧁</div>
+            </div>
+        </section>
+
+
+        <!-- ===== 2. OLDAL: SÜTEMÉNYEK ===== -->
+        <section id="sutik" class="oldal">
+            <div class="section">
+                <h2 class="cim">Kedvenceink</h2>
+
+                <div class="cards">
+
+                    <article class="card">
+                        <div class="ikon">🧁</div>
+                        <h3>Vaníliás muffin</h3>
+                        <p>Puha, illatos klasszikus, ami mindig sikerül.</p>
+                        <button onclick="receptMutat('muffin')">Recept</button>
+                    </article>
+
+                    <article class="card">
+                        <div class="ikon">🍓</div>
+                        <h3>Epres torta</h3>
+                        <p>Könnyű piskóta friss eperrel és tejszínes krémmel.</p>
+                        <button onclick="receptMutat('torta')">Recept</button>
+                    </article>
+
+                    <article class="card">
+                        <div class="ikon">🍪</div>
+                        <h3>Csokis keksz</h3>
+                        <p>Ropogós szélű, belül puha, csokidarabkás.</p>
+                        <button onclick="receptMutat('keksz')">Recept</button>
+                    </article>
+
+                    <article class="card">
+                        <div class="ikon">🫐</div>
+                        <h3>Áfonyás cheesecake</h3>
+                        <p>Krémes sajttorta áfonyával, ropogós alappal.</p>
+                        <button onclick="receptMutat('cheesecake')">Recept</button>
+                    </article>
+
+                    <article class="card">
+                        <div class="ikon">🍫</div>
+                        <h3>Mogyorós brownie</h3>
+                        <p>Sűrű, csokis, diós – a csokirajongók álma.</p>
+                        <button onclick="receptMutat('brownie')">Recept</button>
+                    </article>
+
+                    <article class="card">
+                        <div class="ikon">🍋</div>
+                        <h3>Citromos pite</h3>
+                        <p>Friss, savanykás citromkrém omlós tésztában.</p>
+                        <button onclick="receptMutat('citrompite')">Recept</button>
+                    </article>
+
+                    <article class="card">
+                        <div class="ikon">🌸</div>
+                        <h3>Málnás macaron</h3>
+                        <p>Francia finomság: omlós, rózsaszín, málnás.</p>
+                        <button onclick="receptMutat('macaron')">Recept</button>
+                    </article>
+
+                    <article class="card">
+                        <div class="ikon">🥥</div>
+                        <h3>Kókuszgolyó</h3>
+                        <p>Kakaós, kókuszos, elronthatatlan klasszikus.</p>
+                        <button onclick="receptMutat('kokuszgolyo')">Recept</button>
+                    </article>
+
+                    <article class="card">
+                        <div class="ikon">🥮</div>
+                        <h3>Fahéjas csiga</h3>
+                        <p>Meleg, puha tekercs fahéjas örvénnyel.</p>
+                        <button onclick="receptMutat('csiga')">Recept</button>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== 3. OLDAL: RECEPT ===== -->
+        <section id="recept" class="oldal">
+            <div class="recipe-section">
+                <div class="recipe-box">
+                    <h2 id="recipe-title">🧁 Vaníliás muffin</h2>
+                    <p id="recipe-text">Egy egyszerű és finom muffin, amit kezdőként is könnyű elkészíteni.</p>
+
+                    <h3>Hozzávalók:</h3>
+                    <ul id="ingredients"></ul>
+
+                    <h3>Elkészítés:</h3>
+                    <!-- <ol> = számozott lista: a lépések sora fontos -->
+                    <ol id="lepesek"></ol>
+
+                    <button onclick="adagolas()" class="button">Adag átszámítása</button>
+                    <p id="result"></p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== 4. OLDAL: KVÍZ ===== -->
+        <section id="kviz" class="oldal">
+            <div class="quiz-section">
+                <h2 class="cim">Melyik süti illik hozzád?</h2>
+                <p class="alcim">Válassz egy ízt!</p>
+
+                <div class="quiz-buttons">
+                    <button onclick="kviz('csokis')">🍫 Csokoládé</button>
+                    <button onclick="kviz('gyumolcsos')">🍓 Gyümölcs</button>
+                    <button onclick="kviz('vanilias')">🧁 Vanília</button>
+                </div>
+
+                <p id="quiz-result"></p>
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer>
+        <h3>Magic Bakery</h3>
+        <p>📧 magicbakery@example.com</p>
+        <p>📍 Süti utca 12., Budapest</p>
+        <p class="copyright">© 2026 Magic Bakery</p>
+    </footer>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
