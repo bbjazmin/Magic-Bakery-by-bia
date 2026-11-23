@@ -3,315 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Magic Bakery – süteményreceptek, desszertek és sütési ötletek.">
     <title>Magic Bakery</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23ffe8ef'/><text x='8' y='48' font-size='45'>🧁</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
-        <div class="fejlec-belso">
-            <div class="logo-doboz">
-                <span class="logo-ikon">🧁</span>
-                <div>
-                    <div class="logo">Magic Bakery</div>
-                    <p class="alcim">Édes receptek, adagkalkulátor és nemzetközi desszertek</p>
-                </div>
-            </div>
-
-            <nav aria-label="Fő navigáció">
-                <button type="button" class="nav-gomb aktiv" data-oldal="fooldal" onclick="oldalValtas('fooldal')">Főoldal</button>
-                <button type="button" class="nav-gomb" data-oldal="sutemenyek" onclick="oldalValtas('sutemenyek')">Sütemények</button>
-                <button type="button" class="nav-gomb" data-oldal="recept" onclick="oldalValtas('recept')">Recept</button>
-                <button type="button" class="nav-gomb" data-oldal="kereso" onclick="oldalValtas('kereso')">Kereső</button>
-            </nav>
-        </div>
+        <nav class="navbar">
+            <a class="logo" href="#" onclick="oldalValtas('fooldal'); return false;">Magic Bakery <span>🧁</span></a>
+            <ul class="nav-links">
+                <li><button class="nav-gomb aktiv" data-oldal="fooldal" onclick="oldalValtas('fooldal')">Főoldal</button></li>
+                <li><button class="nav-gomb" data-oldal="sutik" onclick="oldalValtas('sutik')">Sütemények</button></li>
+                <li><button class="nav-gomb" data-oldal="recept" onclick="oldalValtas('recept')">Recept</button></li>
+                <li><button class="nav-gomb" data-oldal="desszertek" onclick="oldalValtas('desszertek')">Nemzetközi receptek</button></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
         <section id="fooldal" class="oldal lathato">
             <div class="hero">
-                <span class="badge">✨ Házi pékség &amp; receptgyűjtemény</span>
-                <h1>Süss valami finomat még ma!</h1>
-                <p>Válogass a magyar és nemzetközi sütemények között, számold át a hozzávalókat tetszőleges adagra, vagy keress új desszerteket.</p>
-                <div class="hero-gombok">
-                    <button type="button" class="button" onclick="oldalValtas('sutemenyek')">Sütemények böngészése</button>
-                    <button type="button" class="button masodlagos-gomb" onclick="oldalValtas('kereso')">Desszertkereső megnyitása</button>
+                <div class="hero-text">
+                    <p class="small-title">Egy kis varázslat minden falatban</p>
+                    <h1>Üdvözöl a<br><span>Magic Bakery!</span></h1>
+                    <p class="bekezdes">Fedezd fel a kedvenc süteményeidet, próbálj ki új recepteket, és inspirálódj a világ desszertjeiből!</p>
+                    <button class="button" onclick="oldalValtas('sutik')">Felfedezem</button>
                 </div>
+                <div class="hero-cake" aria-label="Muffin">🧁</div>
             </div>
+            <div class="welcome-strip">
+                <span>🍓 Friss ötletek</span><span>🍰 Egyszerű receptek</span><span>💗 Édes pillanatok</span>
+            </div>
+        </section>
 
-            <div class="kiemelt-sav">
-                <div class="info-kartya">
-                    <strong>29 saját recept</strong>
-                    <span>Részletes hozzávalókkal és elkészítéssel</span>
-                </div>
-                <div class="info-kartya">
-                    <strong>Adagkalkulátor</strong>
-                    <span>Automatikus átszámítás bármilyen adagra</span>
-                </div>
-                <div class="info-kartya">
-                    <strong>TheMealDB API</strong>
-                    <span>Angol nyelvű desszertek keresése és megnyitása</span>
+        <section id="sutik" class="oldal">
+            <div class="section">
+                <h2 class="cim">Kedvenceink</h2>
+                <p class="section-intro">Válassz egy süteményt, és nézd meg a hozzávalókat és az elkészítés lépéseit!</p>
+                <div class="cards" id="local-cards">
+                    <article class="card"><div class="ikon">🧁</div><h3>Vaníliás muffin</h3><p>Puha, illatos klasszikus.</p><button onclick="receptMutat('muffin')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍓</div><h3>Epres torta</h3><p>Könnyű piskóta tejszínes krémmel.</p><button onclick="receptMutat('torta')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍪</div><h3>Csokis keksz</h3><p>Ropogós szélű, belül puha keksz.</p><button onclick="receptMutat('keksz')">Recept</button></article>
+                    <article class="card"><div class="ikon">🫐</div><h3>Áfonyás cheesecake</h3><p>Krémes sajttorta ropogós alappal.</p><button onclick="receptMutat('cheesecake')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍫</div><h3>Mogyorós brownie</h3><p>Sűrű, csokis finomság.</p><button onclick="receptMutat('brownie')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍋</div><h3>Citromos pite</h3><p>Friss, savanykás citromkrém.</p><button onclick="receptMutat('citrompite')">Recept</button></article>
+                    <article class="card"><div class="ikon">🌸</div><h3>Málnás macaron</h3><p>Francia édesség málnás töltelékkel.</p><button onclick="receptMutat('macaron')">Recept</button></article>
+                    <article class="card"><div class="ikon">🥥</div><h3>Kókuszgolyó</h3><p>Kakaós, kókuszos klasszikus.</p><button onclick="receptMutat('kokuszgolyo')">Recept</button></article>
+                    <article class="card"><div class="ikon">🥮</div><h3>Fahéjas csiga</h3><p>Puha tekercs fahéjas töltelékkel.</p><button onclick="receptMutat('csiga')">Recept</button></article>
+                    <article class="card"><div class="ikon">🥞</div><h3>Amerikai palacsinta</h3><p>Vastag, puha palacsinta reggelire.</p><button onclick="receptMutat('palacsinta')">Recept</button></article>
+                    <article class="card"><div class="ikon">🧇</div><h3>Belga gofri</h3><p>Kívül ropogós, belül levegős gofri.</p><button onclick="receptMutat('gofri')">Recept</button></article>
+                    <article class="card"><div class="ikon">☕</div><h3>Tiramisu</h3><p>Olasz kávés-mascarponés desszert.</p><button onclick="receptMutat('tiramisu')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍏</div><h3>Almás pite</h3><p>Fahéjas, reszelt almás töltelék omlós tésztában.</p><button onclick="receptMutat('almspite')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍒</div><h3>Meggyes pite</h3><p>Savanykás meggyes töltelékű sütemény.</p><button onclick="receptMutat('meggylep')">Recept</button></article>
+                    <article class="card"><div class="ikon">🌰</div><h3>Zserbó</h3><p>Diós és baracklekváros réteges sütemény.</p><button onclick="receptMutat('zserbo')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍫</div><h3>Kakaós csiga</h3><p>Puha kelt tészta kakaós töltelékkel.</p><button onclick="receptMutat('kakaoscsiga')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍩</div><h3>Szalagos fánk</h3><p>Könnyű, aranybarna fánk lekvárral.</p><button onclick="receptMutat('fank')">Recept</button></article>
+                    <article class="card"><div class="ikon">💛</div><h3>Francia krémes</h3><p>Leveles tészta vaníliás krémmel.</p><button onclick="receptMutat('kremes')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍮</div><h3>Somlói galuska</h3><p>Réteges desszert krémmel és csokiöntettel.</p><button onclick="receptMutat('somloi')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍓</div><h3>Panna cotta</h3><p>Olasz tejszínes desszert gyümölcsöntettel.</p><button onclick="receptMutat('panacotta')">Recept</button></article>
+                    <article class="card"><div class="ikon">☁️</div><h3>Madártej</h3><p>Vaníliás tejkrém könnyű habgaluskákkal.</p><button onclick="receptMutat('madartej')">Recept</button></article>
+                    <article class="card"><div class="ikon">🌿</div><h3>Kardamonos fonott kalács</h3><p>Illatos, fűszeres kalács reggelire.</p><button onclick="receptMutat('kardamonos')">Recept</button></article>
+                    <article class="card"><div class="ikon">🧀</div><h3>Túrós pite</h3><p>Puha, citromhéjas túrótöltelékes pite.</p><button onclick="receptMutat('turospite')">Recept</button></article>
+                    <article class="card"><div class="ikon">🌺</div><h3>Linzerkarika</h3><p>Omlós, lekvárral töltött klasszikus keksz.</p><button onclick="receptMutat('linzer')">Recept</button></article>
+                    <article class="card"><div class="ikon">🥐</div><h3>Croissant</h3><p>Vajas, leveles péksütemény reggelire.</p><button onclick="receptMutat('rokafark')">Recept</button></article>
+                    <article class="card"><div class="ikon">🌀</div><h3>Lekváros piskótatekercs</h3><p>Könnyű piskótalap lekvárral feltekerve.</p><button onclick="receptMutat('piskotatekercs')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍯</div><h3>Mézes krémes</h3><p>Puha, mézes lapok vaníliás krémmel.</p><button onclick="receptMutat('marlenka')">Recept</button></article>
+                    <article class="card"><div class="ikon">🥖</div><h3>Churros</h3><p>Fahéjas cukorba forgatott spanyol édesség.</p><button onclick="receptMutat('churros')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍚</div><h3>Tejberizs felfújt</h3><p>Sütőben sült vaníliás tejberizs.</p><button onclick="receptMutat('rizskoch')">Recept</button></article>
                 </div>
             </div>
         </section>
 
-        <section id="sutemenyek" class="oldal">
-            <div class="szekcio-fejlec">
-                <h2>Sütemények</h2>
-                <p>Kattints bármelyik süteményre a recept megnyitásához.</p>
-            </div>
-
-            <div id="local-cards" class="cards">
-                <article class="card">
-                    <div class="ikon">🧁</div>
-                    <h3>Vaníliás muffin</h3>
-                    <p>Puha és illatos muffin, körülbelül 12 darab.</p>
-                    <button type="button" onclick="receptMutat('muffin')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🍓</div>
-                    <h3>Epres torta</h3>
-                    <p>Könnyű piskóta friss eperrel és tejszínes krémmel.</p>
-                    <button type="button" onclick="receptMutat('torta')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🍪</div>
-                    <h3>Csokis keksz</h3>
-                    <p>Ropogós szélű, belül puha, csokidarabkás keksz.</p>
-                    <button type="button" onclick="receptMutat('keksz')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🫐</div>
-                    <h3>Áfonyás cheesecake</h3>
-                    <p>Krémes sajttorta áfonyával és ropogós keksszalappal.</p>
-                    <button type="button" onclick="receptMutat('cheesecake')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🍫</div>
-                    <h3>Mogyorós brownie</h3>
-                    <p>Sűrű, csokis brownie dióval.</p>
-                    <button type="button" onclick="receptMutat('brownie')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🍋</div>
-                    <h3>Citromos pite</h3>
-                    <p>Friss, savanykás citromkrém omlós tésztában.</p>
-                    <button type="button" onclick="receptMutat('citrompite')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🌸</div>
-                    <h3>Málnás macaron</h3>
-                    <p>Francia mandulás édesség málnás töltelékkel.</p>
-                    <button type="button" onclick="receptMutat('macaron')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🥥</div>
-                    <h3>Kókuszgolyó</h3>
-                    <p>Kakaós, kókuszos, egyszerűen elkészíthető klasszikus.</p>
-                    <button type="button" onclick="receptMutat('kokuszgolyo')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🥮</div>
-                    <h3>Fahéjas csiga</h3>
-                    <p>Puha kelt tészta fahéjas-cukros töltelékkel.</p>
-                    <button type="button" onclick="receptMutat('csiga')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🥞</div>
-                    <h3>Amerikai palacsinta</h3>
-                    <p>Vastag, puha amerikai palacsinta reggelire vagy desszertnek.</p>
-                    <button type="button" onclick="receptMutat('palacsinta')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🧇</div>
-                    <h3>Belga gofri</h3>
-                    <p>Kívül ropogós, belül levegős gofri gyümölccsel vagy porcukorral.</p>
-                    <button type="button" onclick="receptMutat('gofri')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">☕</div>
-                    <h3>Tiramisu</h3>
-                    <p>Olasz kávés-mascarponés desszert babapiskótával és kakaóval.</p>
-                    <button type="button" onclick="receptMutat('tiramisu')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🍏</div>
-                    <h3>Almás pite</h3>
-                    <p>Fahéjas, reszelt almás töltelék omlós tésztában.</p>
-                    <button type="button" onclick="receptMutat('almspite')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🍒</div>
-                    <h3>Meggyes pite</h3>
-                    <p>Savanykás meggyes töltelékű, gyorsan elkészíthető sütemény.</p>
-                    <button type="button" onclick="receptMutat('meggylep')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🌰</div>
-                    <h3>Zserbó</h3>
-                    <p>Hagyományos diós és baracklekváros réteges sütemény csokimázzal.</p>
-                    <button type="button" onclick="receptMutat('zserbo')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🍫</div>
-                    <h3>Kakaós csiga</h3>
-                    <p>Puha kelt tészta csiga édes kakaós töltelékkel.</p>
-                    <button type="button" onclick="receptMutat('kakaoscsiga')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🍩</div>
-                    <h3>Szalagos fánk</h3>
-                    <p>Könnyű, aranybarna fánk lekvárral vagy porcukorral.</p>
-                    <button type="button" onclick="receptMutat('fank')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">💛</div>
-                    <h3>Francia krémes</h3>
-                    <p>Ropogós leveles tészta vaníliás főzött krémmel és tejszínhabbal.</p>
-                    <button type="button" onclick="receptMutat('kremes')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🍮</div>
-                    <h3>Somlói galuska</h3>
-                    <p>Réteges desszert piskótával, dióval, vaníliakrémrel és csokiöntettel.</p>
-                    <button type="button" onclick="receptMutat('somloi')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🍓</div>
-                    <h3>Panna cotta</h3>
-                    <p>Olasz tejszínes desszert gyümölcsöntettel.</p>
-                    <button type="button" onclick="receptMutat('panacotta')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">☁️</div>
-                    <h3>Madártej</h3>
-                    <p>Klasszikus vaníliás tejkrém könnyű habgaluskákkal.</p>
-                    <button type="button" onclick="receptMutat('madartej')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🌿</div>
-                    <h3>Kardamonos fonott kalács</h3>
-                    <p>Illatos, fűszeres kalács reggelire vagy uzsonnára.</p>
-                    <button type="button" onclick="receptMutat('kardamonos')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🧀</div>
-                    <h3>Túrós pite</h3>
-                    <p>Puha, citromhéjas túrótöltelékes pite.</p>
-                    <button type="button" onclick="receptMutat('turospite')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🌺</div>
-                    <h3>Linzerkarika</h3>
-                    <p>Omlós, lekvárral töltött, porcukorral szórt klasszikus keksz.</p>
-                    <button type="button" onclick="receptMutat('linzer')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🥐</div>
-                    <h3>Croissant</h3>
-                    <p>Vajas, leveles péksütemény reggelire.</p>
-                    <button type="button" onclick="receptMutat('rokafark')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🌀</div>
-                    <h3>Lekváros piskótatekercs</h3>
-                    <p>Könnyű piskótalap finom lekvárral feltekerve.</p>
-                    <button type="button" onclick="receptMutat('piskotatekercs')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🍯</div>
-                    <h3>Mézes krémes</h3>
-                    <p>Puha, mézes lapok vaníliás-tejfölös vagy pudingos krémmel.</p>
-                    <button type="button" onclick="receptMutat('marlenka')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🥖</div>
-                    <h3>Churros</h3>
-                    <p>Fahéjas cukorba forgatott, ropogós spanyol édesség.</p>
-                    <button type="button" onclick="receptMutat('churros')">Recept megnyitása</button>
-                </article>
-
-                <article class="card">
-                    <div class="ikon">🍚</div>
-                    <h3>Tejberizs felfújt</h3>
-                    <p>Krémestől szaftos, sütőben sült vaníliás tejberizs.</p>
-                    <button type="button" onclick="receptMutat('rizskoch')">Recept megnyitása</button>
-                </article>
+        <section id="desszertek" class="oldal">
+            <div class="api-section">
+                <div class="section api-inner">
+                    <p class="small-title">Új ízek a nagyvilágból</p>
+                    <h2 class="cim">Nemzetközi desszertek</h2>
+                    <p class="section-intro">Ezeket a recepteket egy külső receptadatbázisból, a TheMealDB API-ból töltjük be.</p>
+                    <form id="search-form" class="search-form">
+                        <label class="sr-only" for="recipe-search">Desszert keresése</label>
+                        <input id="recipe-search" type="search" placeholder="Keress például: cake, pudding, cheesecake..." autocomplete="off">
+                        <button class="button" type="submit">Keresés</button>
+                        <button class="button button-light" type="button" id="show-desserts">Összes desszert</button>
+                    </form>
+                    <p id="api-status" class="api-status" role="status" aria-live="polite">Desszertek betöltése...</p>
+                    <div id="api-cards" class="cards"></div>
+                    <div id="api-recipe" class="api-recipe" hidden></div>
+                </div>
             </div>
         </section>
 
         <section id="recept" class="oldal">
-            <article class="recept-lap">
-                <h2 id="recipe-title">🧁 Vaníliás muffin</h2>
-                <p id="recipe-text" class="recept-leiras">Puha és illatos muffin, körülbelül 12 darab.</p>
-                <img id="recipe-image" class="recept-kep" src="" alt="Sütemény képe">
-
-                <div class="adag-sav">
-                    <button type="button" class="button" onclick="adagolas()">Adag átszámítása</button>
-                    <p id="result" aria-live="polite"></p>
+            <div class="recipe-section">
+                <div class="recipe-box">
+                    <p class="small-title">Magic Bakery receptkönyv</p>
+                    <h2 id="recipe-title">🧁 Vaníliás muffin</h2>
+                    <img id="recipe-image" src="" alt="" style="max-width: 100%; width: 220px; height: auto; border-radius: 16px; display: block; margin: 12px 0;">
+                    <p id="recipe-text">Puha és illatos muffin, amit otthon is könnyen elkészíthetsz.</p>
+                    <h3>Hozzávalók:</h3>
+                    <ul id="ingredients"></ul>
+                    <h3>Elkészítés:</h3>
+                    <ol id="lepesek"></ol>
+                    <button onclick="adagolas()" class="button">Adag átszámítása</button>
+                    <p id="result" role="status"></p>
                 </div>
-
-                <h3>Hozzávalók</h3>
-                <ul id="ingredients"></ul>
-
-                <h3>Elkészítés</h3>
-                <ol id="lepesek"></ol>
-
-                <button type="button" class="button back-button" onclick="oldalValtas('sutemenyek')">Vissza a süteményekhez</button>
-            </article>
-        </section>
-
-        <section id="kereso" class="oldal">
-            <div class="szekcio-fejlec">
-                <h2>Desszertkereső (TheMealDB)</h2>
-                <p>Keress angol kulcsszóra (például: <em>cake, pie, cookie, chocolate</em>), vagy listázd ki a desszerteket.</p>
             </div>
-
-            <form id="search-form" class="kereso-urlap">
-                <input type="text" id="recipe-search" placeholder="Írj be egy angol desszertnevet...">
-                <button type="submit" class="button">Keresés</button>
-                <button type="button" id="show-desserts" class="button masodlagos-gomb">Összes desszert</button>
-            </form>
-
-            <p id="api-status" class="api-allapot" aria-live="polite"></p>
-            <div id="api-cards" class="cards"></div>
-            <article id="api-recipe" class="recept-lap api-recept" hidden></article>
         </section>
     </main>
 
     <footer>
-        <p>Magic Bakery · Receptgyűjtemény és adagkalkulátor</p>
+        <h3>Magic Bakery 🧁</h3>
+        <p>Egy kis varázslat minden falatban.</p>
+        <p class="copyright">A külső receptek adatai: TheMealDB API · © 2026 Magic Bakery</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
