@@ -181,19 +181,3 @@ footer h3 { color: var(--vilagos); margin-bottom: 8px; }
     .search-form { flex-direction: column; }
     .search-form input, .search-form button { width: 100%; max-width: none; }
 }
-
-/* ===== Receptoldali kep ===== */
-.recipe-image {
-    width: 100%;
-    max-width: 420px;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: 15px;
-    display: block;
-    margin: 0 auto 22px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
-}
-
-@media (max-width: 768px) {
-    .recipe-image { max-width: 100%; }
-}
