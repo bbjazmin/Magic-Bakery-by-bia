@@ -44,7 +44,7 @@
         <section id="sutik" class="oldal">
             <div class="section">
                 <h2 class="cim">Kedvenceink</h2>
-                <p class="section-intro">Válassz egy süteményt, és nézd meg a hozzávalókat és az elkészítés lépéseit!</p>
+                <p class="section-intro">Tizenöt házi sütemény közül választhatsz – mindegyikhez valódi fotó, hozzávalók és lépésről lépésre szóló elkészítés tartozik!</p>
                 <div class="cards" id="local-cards">
                     <article class="card"><div class="ikon">🧁</div><h3>Vaníliás muffin</h3><p>Puha, illatos klasszikus.</p><button onclick="receptMutat('muffin')">Recept</button></article>
                     <article class="card"><div class="ikon">🍓</div><h3>Epres torta</h3><p>Könnyű piskóta tejszínes krémmel.</p><button onclick="receptMutat('torta')">Recept</button></article>
@@ -55,6 +55,14 @@
                     <article class="card"><div class="ikon">🌸</div><h3>Málnás macaron</h3><p>Francia édesség málnás töltelékkel.</p><button onclick="receptMutat('macaron')">Recept</button></article>
                     <article class="card"><div class="ikon">🥥</div><h3>Kókuszgolyó</h3><p>Kakaós, kókuszos klasszikus.</p><button onclick="receptMutat('kokuszgolyo')">Recept</button></article>
                     <article class="card"><div class="ikon">🥮</div><h3>Fahéjas csiga</h3><p>Puha tekercs fahéjas töltelékkel.</p><button onclick="receptMutat('csiga')">Recept</button></article>
+
+                    <!-- Új receptek -->
+                    <article class="card"><div class="ikon">🍎</div><h3>Almás pite</h3><p>Omlós tészta, fahéjas alma.</p><button onclick="receptMutat('almaspite')">Recept</button></article>
+                    <article class="card"><div class="ikon">☕</div><h3>Tiramisu</h3><p>Olasz kávéhabos klasszikus.</p><button onclick="receptMutat('tiramisu')">Recept</button></article>
+                    <article class="card"><div class="ikon">🥕</div><h3>Sárgarépás süti</h3><p>Bársonyos tészta cukormázzal.</p><button onclick="receptMutat('sargarepa')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍒</div><h3>Meggyes pite</h3><p>Könnyed, gyümölcsös nyári kedvenc.</p><button onclick="receptMutat('meggyespite')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍌</div><h3>Banános kenyér</h3><p>Puha, nedves, reggelire is.</p><button onclick="receptMutat('banankenyer')">Recept</button></article>
+                    <article class="card"><div class="ikon">🍩</div><h3>Klasszikus fánk</h3><p>Lekváros, kelt tészta fánk.</p><button onclick="receptMutat('fank')">Recept</button></article>
                 </div>
             </div>
 
@@ -83,6 +91,7 @@
             <div class="recipe-section">
                 <div class="recipe-box">
                     <p class="small-title">Magic Bakery receptkönyv</p>
+                    <img id="recipe-image" class="recipe-image" src="" alt="" hidden>
                     <h2 id="recipe-title">🧁 Vaníliás muffin</h2>
                     <p id="recipe-text">Puha és illatos muffin, amit otthon is könnyen elkészíthetsz.</p>
                     <h3>Hozzávalók:</h3>
