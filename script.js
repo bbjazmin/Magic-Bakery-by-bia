@@ -231,6 +231,47 @@ const receptek = {
 
 let aktualisReceptKulcs = "muffin";
 
+/* Kártyák képeinek beállítása a receptMutat képei alapján */
+function kartyakKepeinekBeallitasa() {
+    document.querySelectorAll("#local-cards .card").forEach(function (kartya) {
+        const gomb = kartya.querySelector("button");
+        if (!gomb) return;
+
+        const talalat = (gomb.getAttribute("onclick") || "").match(/receptMutat\(['"]([^'"]+)['"]\)/);
+        if (!talalat) return;
+
+        const kulcs = talalat[1];
+        const recept = receptek[kulcs];
+        if (!recept) return;
+
+        const ikonElem = kartya.querySelector(".ikon");
+        let kepElem = kartya.querySelector("img.kartya-kep");
+
+        if (!kepElem) {
+            kepElem = document.createElement("img");
+            kepElem.className = "kartya-kep";
+            kepElem.loading = "lazy";
+            kepElem.style.width = "100%";
+            kepElem.style.height = "150px";
+            kepElem.style.objectFit = "cover";
+            kepElem.style.borderRadius = "14px";
+            kepElem.style.marginBottom = "10px";
+
+            if (ikonElem) {
+                ikonElem.replaceWith(kepElem);
+            } else {
+                kartya.prepend(kepElem);
+            }
+        }
+
+        kepElem.onerror = function () {
+            kepElem.src = TARTALEK_KEP;
+        };
+        kepElem.src = recept.kep || TARTALEK_KEP;
+        kepElem.alt = recept.cim;
+    });
+}
+
 /* Saját recept megjelenítése */
 function receptMutat(kulcs) {
     const recept = receptek[kulcs];
@@ -472,7 +513,8 @@ document.getElementById("search-form").addEventListener("submit", function (esem
 
 document.getElementById("show-desserts").addEventListener("click", desszertekBetoltese);
 
-/* Induláskor az első saját recept és az API desszertjei töltődnek be. */
+/* Induláskor beállítjuk a kártyaképeket, az első saját receptet és az API desszerteit. */
+kartyakKepeinekBeallitasa();
 receptMutat("muffin");
 oldalValtas("fooldal");
 desszertekBetoltese();
