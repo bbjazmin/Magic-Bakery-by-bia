@@ -74,4 +74,52 @@
                     <article class="card"><div class="ikon">🌀</div><h3>Lekváros piskótatekercs</h3><p>Könnyű piskótalap lekvárral feltekerve.</p><button onclick="receptMutat('piskotatekercs')">Recept</button></article>
                     <article class="card"><div class="ikon">🍯</div><h3>Mézes krémes</h3><p>Puha, mézes lapok vaníliás krémmel.</p><button onclick="receptMutat('marlenka')">Recept</button></article>
                     <article class="card"><div class="ikon">🥖</div><h3>Churros</h3><p>Fahéjas cukorba forgatott spanyol édesség.</p><button onclick="receptMutat('churros')">Recept</button></article>
-                    <article class="card"><div class="ikon">🍚</div><h3>Tejberizs felfújt</h3><p>Sütőben sült vaníliás tejberizs.</p><button onclick="receptMutat('rizskoch')">Recept</button></
+                    <article class="card"><div class="ikon">🍚</div><h3>Tejberizs felfújt</h3><p>Sütőben sült vaníliás tejberizs.</p><button onclick="receptMutat('rizskoch')">Recept</button></article>
+                </div>
+            </div>
+        </section>
+
+        <section id="desszertek" class="oldal">
+            <div class="api-section">
+                <div class="section api-inner">
+                    <p class="small-title">Új ízek a nagyvilágból</p>
+                    <h2 class="cim">Nemzetközi desszertek</h2>
+                    <p class="section-intro">Ezeket a recepteket egy külső receptadatbázisból, a TheMealDB API-ból töltjük be.</p>
+                    <form id="search-form" class="search-form">
+                        <label class="sr-only" for="recipe-search">Desszert keresése</label>
+                        <input id="recipe-search" type="search" placeholder="Keress például: cake, pudding, cheesecake..." autocomplete="off">
+                        <button class="button" type="submit">Keresés</button>
+                        <button class="button button-light" type="button" id="show-desserts">Összes desszert</button>
+                    </form>
+                    <p id="api-status" class="api-status" role="status" aria-live="polite">Desszertek betöltése...</p>
+                    <div id="api-cards" class="cards"></div>
+                    <div id="api-recipe" class="api-recipe" hidden></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="recept" class="oldal">
+            <div class="recipe-section">
+                <div class="recipe-box">
+                    <p class="small-title">Magic Bakery receptkönyv</p>
+                    <h2 id="recipe-title">🧁 Vaníliás muffin</h2>
+                    <img id="recipe-image" src="" alt="" style="max-width: 100%; width: 220px; height: auto; border-radius: 16px; display: block; margin: 12px 0;">
+                    <p id="recipe-text">Puha és illatos muffin, amit otthon is könnyen elkészíthetsz.</p>
+                    <h3>Hozzávalók:</h3>
+                    <ul id="ingredients"></ul>
+                    <h3>Elkészítés:</h3>
+                    <ol id="lepesek"></ol>
+                    <button onclick="adagolas()" class="button">Adag átszámítása</button>
+                    <p id="result" role="status"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <h3>Magic Bakery 🧁</h3>
+        <p>Egy kis varázslat minden falatban.</p>
+        <p class="copyright">A külső receptek adatai: TheMealDB API · © 2026 Magic Bakery</p>
+    </footer>
+</body>
+</html>
