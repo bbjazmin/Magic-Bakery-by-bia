@@ -1,327 +1,183 @@
-/* ============================================================
-   MAGIC BAKERY – STYLE.CSS
+/* MAGIC BAKERY – külső stíluslap */
 
-   TARTALOMJEGYZÉK (a nevére rákereshetsz Ctrl+F-fel):
-   1. SZÍNEK és ALAPOK
-   2. MENÜ
-   3. FŐOLDAL
-   4. GOMBOK
-   5. KÁRTYÁK
-   6. RECEPT
-   7. FOOTER
-   8. MOBIL (reszponzív)
-   ============================================================ */
-
-
-/* ===== 1. SZÍNEK és ALAPOK ===== */
-
-/* A SZÍNEK. */
+/* 1. Színek és alapbeállítások */
 :root {
-    --fo-szin: #d86b91;        /* fő rózsaszín: címek, gombok */
-    --fo-szin-sotet: #b95277;  /* sötétebb rózsaszín: gomb fölé húzáskor */
-    --vilagos: #f4a9bf;        /* világos rózsaszín: kis gombok */
-    --halvany: #fff0f5;        /* halvány rózsaszín háttér */
-    --hatter: #fff8f5;         /* az oldal háttere */
-    --szoveg: #4b3430;         /* szöveg barnásszín */
+    --fo-szin: #d86b91;
+    --fo-szin-sotet: #b95277;
+    --vilagos: #f4a9bf;
+    --halvany: #fff0f5;
+    --hatter: #fff8f5;
+    --szoveg: #4b3430;
     --feher: #ffffff;
 }
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-    font-family: "Quicksand", Arial, sans-serif; /* nincs net: Arial lesz */
-    background-color: var(--hatter);
+    font-family: "Quicksand", Arial, sans-serif;
+    background: var(--hatter);
     color: var(--szoveg);
     line-height: 1.6;
 }
-
-/* Egyszerre csak az látszik, aminek van .lathato osztálya */
+button, input { font: inherit; }
 .oldal { display: none; }
 .oldal.lathato { display: block; }
 
-
-/* ===== 2. MENÜ ===== */
-
+/* 2. Fejléc és navigáció */
 header {
-    background-color: var(--feher);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* enyhe árnyék */
-    position: sticky;   /* görgetéskor fent ragad */
+    background: var(--feher);
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    position: sticky;
     top: 0;
     z-index: 10;
 }
-
 .navbar {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: auto;
     padding: 15px 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
-
 .logo {
-    font-size: 22px;
-    font-weight: bold;
     color: var(--fo-szin);
+    font-size: 23px;
+    font-weight: 700;
+    text-decoration: none;
 }
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 25px;
-}
-
-/* A menügombok úgy néznek ki, mint egy link */
+.nav-links { display: flex; list-style: none; gap: 25px; }
 .nav-gomb {
-    border: none;
+    border: 0;
     background: none;
-    font-family: inherit;
-    font-size: 16px;
-    font-weight: bold;
     color: var(--szoveg);
+    font-weight: 700;
     cursor: pointer;
+    padding: 7px 2px;
 }
+.nav-gomb:hover, .nav-gomb.aktiv { color: var(--fo-szin); }
 
-.nav-gomb:hover,
-.nav-gomb.aktiv {
-    color: var(--fo-szin);
-}
-
-
-/* ===== 3. FŐOLDAL ===== */
-
+/* 3. Főoldal */
 .hero {
     min-height: 500px;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: auto;
-    padding: 60px 25px;
+    padding: 65px 25px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 40px;
 }
-
-.small-title {
-    color: var(--fo-szin);
-    font-weight: bold;
-    margin-bottom: 12px;
-}
-
-.hero h1 {
-    font-size: 52px;
-    line-height: 1.1;
-    margin-bottom: 18px;
-}
-
-.hero h1 span {
-    color: var(--fo-szin);
-}
-
-.bekezdes {
-    font-size: 17px;
-    margin-bottom: 28px;
-}
-
+.small-title { color: var(--fo-szin); font-weight: 700; margin-bottom: 12px; }
+.hero h1 { font-size: 52px; line-height: 1.1; margin-bottom: 18px; }
+.hero h1 span { color: var(--fo-szin); }
+.bekezdes { font-size: 17px; max-width: 570px; margin-bottom: 28px; }
 .hero-cake {
-    width: 260px;
-    height: 260px;
-    border-radius: 50%;              /* kör alak */
-    background-color: #ffdce8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 120px;
-    flex-shrink: 0;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 260px; height: 260px; border-radius: 50%;
+    background: #ffdce8; display: flex; justify-content: center;
+    align-items: center; font-size: 120px; flex-shrink: 0;
+    box-shadow: 0 15px 30px rgba(0,0,0,.1);
+}
+.welcome-strip {
+    display: flex; justify-content: center; flex-wrap: wrap;
+    gap: 35px; padding: 25px; background: #ffe8ef;
+    color: var(--fo-szin-sotet); font-weight: 700;
 }
 
-
-/* ===== 4. GOMBOK ===== */
-
+/* 4. Gombok és általános szekciók */
 .button {
-    border: none;
-    background-color: var(--fo-szin);
-    color: var(--feher);
-    padding: 12px 26px;
-    border-radius: 25px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: 0.2s;   /* minden változás 0,2 mp alatt megy */
+    border: 0; background: var(--fo-szin); color: var(--feher);
+    padding: 12px 25px; border-radius: 25px; font-weight: 700;
+    cursor: pointer; transition: .2s;
 }
+.button:hover { background: var(--fo-szin-sotet); }
+.button-light { background: #f4a9bf; }
+.button-light:hover { background: var(--fo-szin-sotet); }
+.section { max-width: 1100px; margin: auto; padding: 60px 25px; }
+.cim { text-align: center; font-size: 32px; margin-bottom: 12px; }
+.section-intro { text-align: center; max-width: 700px; margin: 0 auto 30px; }
 
-.button:hover {
-    background-color: var(--fo-szin-sotet);
-}
-
-
-/* ===== 5. KÁRTYÁK ===== */
-
-.section {
-    max-width: 1000px;
-    margin: auto;
-    padding: 60px 25px;
-}
-
-.cim {
-    text-align: center;
-    font-size: 32px;
-    margin-bottom: 30px;
-}
-
-/* A kártyák maguktól rendeződnek 3 → 2 → 1 oszlopra */
+/* 5. Süteménykártyák */
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 22px;
 }
-
 .card {
-    background-color: var(--feher);
-    padding: 28px;
-    border-radius: 18px;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    transition: 0.3s;
+    background: var(--feher); padding: 25px; border-radius: 18px;
+    text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    transition: .25s;
 }
-
-.card:hover {
-    transform: translateY(-6px);  /* fölé húzáskor felugrik */
-}
-
-.ikon {
-    font-size: 55px;
-    margin-bottom: 8px;
-}
-
-.card h3 {
-    color: var(--fo-szin);
-    margin-bottom: 8px;
-}
-
-.card p {
-    font-size: 15px;
-    margin-bottom: 16px;
-}
-
+.card:hover { transform: translateY(-5px); }
+.ikon { font-size: 48px; margin-bottom: 8px; }
+.card h3 { color: var(--fo-szin); margin-bottom: 8px; }
+.card p { font-size: 15px; margin-bottom: 16px; }
 .card button {
-    border: none;
-    background-color: var(--vilagos);
-    color: var(--feher);
-    padding: 9px 18px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    font-family: inherit;
-    transition: 0.2s;
+    border: 0; background: var(--vilagos); color: white;
+    padding: 9px 18px; border-radius: 20px; cursor: pointer;
+    font-weight: 700;
+}
+.card button:hover { background: var(--fo-szin); }
+.api-card { overflow: hidden; padding: 0 0 22px; }
+.api-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.api-card h3 { padding: 15px 15px 0; }
+.api-card button { margin-top: 5px; }
+
+/* 6. API kereső */
+.api-section { background: #fff0f5; }
+.api-inner { max-width: 1100px; }
+.api-inner > .small-title { text-align: center; }
+.search-form {
+    display: flex; justify-content: center; flex-wrap: wrap;
+    gap: 10px; margin: 25px auto;
+}
+.search-form input {
+    min-width: 230px; flex: 1; max-width: 430px;
+    padding: 12px 16px; border: 1px solid #e8b7c7;
+    border-radius: 25px; background: white; color: var(--szoveg);
+}
+.search-form input:focus { outline: 3px solid #f4a9bf; }
+.api-status { text-align: center; color: var(--fo-szin-sotet); font-weight: 700; margin: 15px 0 25px; }
+.api-recipe {
+    max-width: 800px; margin: 35px auto 0; padding: 28px;
+    background: white; border-radius: 18px; box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+.api-recipe img { width: 100%; max-width: 420px; display: block; margin: 0 auto 20px; border-radius: 15px; }
+.api-recipe h3 { color: var(--fo-szin); margin: 18px 0 8px; }
+.api-recipe ul, .api-recipe ol { padding-left: 22px; }
+.api-recipe li { margin-bottom: 6px; }
+.api-recipe .back-button { margin-top: 20px; }
+[hidden] { display: none !important; }
+.sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0;
+    margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 
-.card button:hover {
-    background-color: var(--fo-szin);
-}
-
-
-/* ===== 6. RECEPT ===== */
-
-.recipe-section {
-    background-color: #ffe8ef;
-    padding: 60px 25px;
-    min-height: 70vh;
-}
-
+/* 7. Saját receptoldal */
+.recipe-section { background: #ffe8ef; padding: 60px 25px; min-height: 70vh; }
 .recipe-box {
-    max-width: 700px;
-    margin: auto;
-    background-color: var(--feher);
-    border-radius: 20px;
-    padding: 35px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    max-width: 700px; margin: auto; background: white;
+    border-radius: 20px; padding: 35px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
 }
+.recipe-box h2, .recipe-box h3 { color: var(--fo-szin); }
+.recipe-box h3 { margin: 20px 0 8px; }
+.recipe-box ul, .recipe-box ol { padding-left: 22px; margin-bottom: 22px; line-height: 1.8; }
+.recipe-box li::marker { color: var(--fo-szin); }
+#result { margin-top: 15px; color: var(--fo-szin-sotet); font-weight: 700; }
 
-.recipe-box h2 {
-    color: var(--fo-szin);
-    margin-bottom: 8px;
-}
+/* 8. Lábléc */
+footer { background: var(--szoveg); color: white; padding: 35px 25px; text-align: center; }
+footer h3 { color: var(--vilagos); margin-bottom: 8px; }
+.copyright { margin-top: 15px; opacity: .75; font-size: 14px; }
 
-.recipe-box h3 {
-    color: var(--fo-szin);
-    margin: 20px 0 8px;
-}
-
-.recipe-box ul,
-.recipe-box ol {
-    padding-left: 20px;
-    margin-bottom: 22px;
-    line-height: 1.8;
-}
-
-.recipe-box li::marker {
-    color: var(--fo-szin);  /* rózsaszín pöttyök és számok */
-}
-
-#result {
-    margin-top: 15px;
-    font-weight: bold;
-    color: var(--fo-szin);
-}
-
-
-
-
-/* ===== 7. FOOTER ===== */
-
-footer {
-    background-color: var(--szoveg);
-    color: var(--feher);
-    padding: 35px 25px;
-    text-align: center;
-}
-
-footer h3 {
-    color: var(--vilagos);
-    margin-bottom: 10px;
-}
-
-.copyright {
-    margin-top: 18px;
-    opacity: 0.7;
-    font-size: 14px;
-}
-
-
-/* ===== 8. MOBIL (reszponzív) =====
-   768px-nél keskenyebb képernyőn ez érvényesül. */
+/* 9. Mobilnézet */
 @media (max-width: 768px) {
-
-    .navbar {
-        flex-direction: column;   /* menü egymás alá */
-        gap: 12px;
-    }
-
-    .nav-links {
-        gap: 14px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .hero {
-        flex-direction: column;
-        text-align: center;
-        gap: 40px;
-    }
-
-    .hero h1 {
-        font-size: 38px;
-    }
-
-    .hero-cake {
-        width: 200px;
-        height: 200px;
-        font-size: 90px;
-    }
+    .navbar { flex-direction: column; gap: 10px; }
+    .nav-links { gap: 18px; flex-wrap: wrap; justify-content: center; }
+    .hero { flex-direction: column; text-align: center; gap: 35px; }
+    .hero h1 { font-size: 39px; }
+    .hero-cake { width: 200px; height: 200px; font-size: 90px; }
+    .welcome-strip { gap: 14px; text-align: center; }
+    .recipe-box, .api-recipe { padding: 22px; }
+    .search-form { flex-direction: column; }
+    .search-form input, .search-form button { width: 100%; max-width: none; }
 }
