@@ -1,281 +1,298 @@
-/* =========================================================
-   1. OLDALVÁLTÓ
-   Egyszerre csak az látszik, aminek .lathato osztálya van. */
-function oldalValtas(id) {
+/* MAGIC BAKERY – JavaScript
+   1. Oldalváltás
+   2. Saját receptek
+   3. Adagkalkulátor
+   4. TheMealDB API – keresés és receptbetöltés
+*/
 
-    /* Minden oldalról leveszük a .lathato osztályt → mind eltűnik */
-    document.querySelectorAll(".oldal").forEach(function (o) {
-        o.classList.remove("lathato");
+/* 1. Oldalváltó */
+function oldalValtas(id) {
+    document.querySelectorAll(".oldal").forEach(function (oldal) {
+        oldal.classList.remove("lathato");
     });
 
-    /* A kért oldal megjelenik */
     document.getElementById(id).classList.add("lathato");
 
-    /* Menüben a nyomott gomb lesz rózsaszín */
-    document.querySelectorAll(".nav-gomb").forEach(function (g) {
-        g.classList.toggle("aktiv", g.dataset.oldal === id);
+    document.querySelectorAll(".nav-gomb").forEach(function (gomb) {
+        gomb.classList.toggle("aktiv", gomb.dataset.oldal === id);
     });
 
-    window.scrollTo(0, 0);  /* felülre ugrik */
+    window.scrollTo(0, 0);
 }
 
-
-/* =========================================================
-   2. RECEPTEK – leírás, hozzávalók, lépések */
+/* 2. A weboldal saját receptjei */
 const receptek = {
     muffin: {
         cim: "🧁 Vaníliás muffin",
-        leiras: "Puha és illatos muffin, kb. 12 darab. Kezdőknek is tuti sikerül!",
-        hozzavalok: [
-            "200 g finomliszt",
-            "100 g kristálycukor",
-            "1 csomag sütőpor",
-            "1 csomag vaníliás cukor",
-            "1 csipet só",
-            "1 nagy tojás",
-            "100 ml tej",
-            "80 ml napraforgóolaj"
-        ],
-        lepesek: [
-            "Melegítsd elő a sütőt 180 fokra, tegyél 12 papírkapszlit a muffinformába.",
-            "Keverd össze a száraz hozzávalókat: liszt, cukor, sütőpor, vaníliás cukor, só.",
-            "Egy másik tálban verd fel a tojást, keverd hozzá a tejet és az olajat.",
-            "Öntsd össze a kettőt, és keverd ÉPPE CSAK össze – a túlkeverés rágóssá teszi!",
-            "Töltsd a kapszlikat kétharmadig, süsd 20–25 percig. Tűpróba: tiszta tű = kész.",
-            "Zárható dobozban 2–3 napig puha marad."
-        ]
+        leiras: "Puha és illatos muffin, körülbelül 12 darab.",
+        hozzavalok: ["200 g finomliszt", "100 g cukor", "1 csomag sütőpor", "1 csomag vaníliás cukor", "1 tojás", "100 ml tej", "80 ml olaj", "1 csipet só"],
+        lepesek: ["Melegítsd elő a sütőt 180 fokra.", "Keverd össze a száraz hozzávalókat.", "Egy másik tálban keverd össze a tojást, a tejet és az olajat.", "Öntsd össze a két keveréket, és óvatosan keverd el.", "Töltsd a masszát muffinpapírokba, majd süsd 20–25 percig."]
     },
     torta: {
         cim: "🍓 Epres torta",
-        leiras: "Könnyű piskóta friss eperrel és tejszínes krémmel, kb. 8 szelet.",
-        hozzavalok: [
-            "A piskótához:",
-            "4 nagy tojás",
-            "120 g kristálycukor",
-            "120 g finomliszt",
-            "1 csomag sütőpor",
-            "A krémhez:",
-            "300 ml habtejszín (jól lehűtve)",
-            "2 evőkanál porcukor",
-            "250 g friss eper"
-        ],
-        lepesek: [
-            "Melegítsd elő a sütőt 180 fokra, bélel ki egy 22–24 cm-es formát.",
-            "Verd fel a tojásokat a cukorral 5–6 percig, míg világos és habos.",
-            "Szitáld rá a lisztet a sütőporral, forgasd óvatosan bele.",
-            "Süsd 30–35 percig. Közben NE nyisd ki a sütőt, mert összeeshet!",
-            "Verd fel a tejszínt a porcukorral kemény habbá.",
-            "Vágd ketté a piskótát, alsó lapra krém + eper, rá a felső lap.",
-            "Kend be a tetejét, díszítsd eperrel, legalább 2 órára hűtőbe."
-        ]
+        leiras: "Könnyű piskóta friss eperrel és tejszínes krémmel.",
+        hozzavalok: ["4 tojás", "120 g cukor", "120 g liszt", "1 teáskanál sütőpor", "300 ml habtejszín", "2 evőkanál porcukor", "250 g eper"],
+        lepesek: ["Melegítsd elő a sütőt 180 fokra.", "Verd habosra a tojásokat a cukorral.", "Forgasd bele a lisztet és a sütőport.", "Süsd a piskótát 30–35 percig, majd hagyd kihűlni.", "Verd fel a tejszínt, töltsd meg vele a piskótát, és díszítsd eperrel."]
     },
     keksz: {
         cim: "🍪 Csokis keksz",
-        leiras: "Ropogós szélű, belül puha keksz, kb. 20 darab.",
-        hozzavalok: [
-            "200 g finomliszt",
-            "100 g vaj (szobahőmérsékletű)",
-            "100 g barna cukor",
-            "1 nagy tojás",
-            "100 g étcsokoládé, kockára vágva",
-            "1 teáskanál sütőpor",
-            "1 csipet só"
-        ],
-        lepesek: [
-            "Melegítsd elő a sütőt 180 fokra, teríts sütőpapírt a tálcára.",
-            "Verd fel a vajat a cukorral 3–4 percig, míg krémes.",
-            "Add hozzá a tojást, keverd simára.",
-            "Forgasd bele a lisztet, sütőport, sót, végül a csokikockákat.",
-            "Golyózz, hagyj köztük 5 cm-t, mert szétterülnek.",
-            "Süsd 12–14 percig: a széle aranybarna, a közepe még puhább.",
-            "A tálcán 10 percig hűljön, utána rácsra."
-        ]
+        leiras: "Ropogós szélű, belül puha, csokidarabkás keksz.",
+        hozzavalok: ["200 g liszt", "100 g vaj", "100 g barna cukor", "1 tojás", "100 g étcsokoládé", "1 teáskanál sütőpor", "1 csipet só"],
+        lepesek: ["Melegítsd elő a sütőt 180 fokra.", "Keverd habosra a vajat a cukorral.", "Add hozzá a tojást.", "Forgasd bele a lisztet, a sütőport, a sót és a csokit.", "Formázz kis golyókat, majd süsd 12–14 percig."]
     },
     cheesecake: {
         cim: "🫐 Áfonyás cheesecake",
-        leiras: "Krémes sajttorta áfonyával, ropogós kekeszalappal, kb. 8 szelet.",
-        hozzavalok: [
-            "Az alaphoz:",
-            "200 g darált keksz",
-            "80 g olvasztott vaj",
-            "A krémhez:",
-            "400 g krémsajt",
-            "120 g kristálycukor",
-            "2 nagy tojás",
-            "200 g tejföl",
-            "150 g áfonya a tetejére"
-        ],
-        lepesek: [
-            "Melegítsd elő a sütőt 160 fokra. Keverd el a kekszet a vajjal.",
-            "Nyomkodsd a forma aljára (egy pohár aljával a legegyenletesebb).",
-            "Elősd 8–10 percig, majd hűtsd ki.",
-            "A krémsajtot keverd simára a cukorral, egyenként add hozzá a tojásokat, végül a tejfölt.",
-            "Öntsd az alapra, szórd rá az áfonyát.",
-            "Süsd 50–60 percig: a széle megáll, a közepe kicsit remegjen.",
-            "Kikapcsolt sütőben, résre nyitott ajtóval 1 órán át hűljön – így nem reped meg.",
-            "Éjjelre hűtőbe, másnap szeletelhető."
-        ]
+        leiras: "Krémes sajttorta áfonyával és ropogós keksszalappal.",
+        hozzavalok: ["200 g darált keksz", "80 g olvasztott vaj", "400 g krémsajt", "120 g cukor", "2 tojás", "200 g tejföl", "150 g áfonya"],
+        lepesek: ["Keverd össze a darált kekszet az olvasztott vajjal.", "Nyomkodd a keveréket egy tortaforma aljára.", "Keverd simára a krémsajtot a cukorral, majd add hozzá a tojásokat és a tejfölt.", "Öntsd a krémet a kekszes alapra, és szórd rá az áfonyát.", "Süsd 160 fokon körülbelül 50 percig, majd hűtsd le."]
     },
     brownie: {
         cim: "🍫 Mogyorós brownie",
-        leiras: "Sűrű, csokis, diós – 16 kocka a csokirajongóknak.",
-        hozzavalok: [
-            "200 g étcsokoládé (min. 60%-os)",
-            "150 g vaj",
-            "150 g kristálycukor",
-            "3 nagy tojás",
-            "90 g finomliszt",
-            "80 g darált dió",
-            "1 csipet só"
-        ],
-        lepesek: [
-            "Melegítsd elő a sütőt 180 fokra, bélel ki egy 20×20 cm-es formát.",
-            "Olvaszd fel a csokit a vajjal, keverd simára, hagyd langyosodni.",
-            "Keverd hozzá a cukrot, majd egyenként a tojásokat.",
-            "Forgasd bele a lisztet, a diót és a sót – ne keverd túl!",
-            "Süsd 25–30 percig: a tű kicsit RAGADJON – ez a jó brownie.",
-            "Teljesen hűlve vágd 16 kockára."
-        ]
+        leiras: "Sűrű, csokis brownie dióval.",
+        hozzavalok: ["200 g étcsokoládé", "150 g vaj", "150 g cukor", "3 tojás", "90 g liszt", "80 g darált dió", "1 csipet só"],
+        lepesek: ["Melegítsd elő a sütőt 180 fokra.", "Olvaszd fel a csokoládét a vajjal.", "Keverd hozzá a cukrot és a tojásokat.", "Forgasd bele a lisztet, a diót és a sót.", "Süsd 25–30 percig, majd hagyd kihűlni."]
     },
     citrompite: {
         cim: "🍋 Citromos pite",
-        leiras: "Friss, savanykás citromkrém omlós tésztában, kb. 6 szelet.",
-        hozzavalok: [
-            "1 tekercs hűtött pitéstészta",
-            "120 ml frissen facsart citromlé (kb. 3 citrom)",
-            "1 citrom reszelt héja",
-            "150 g kristálycukor",
-            "3 nagy tojás",
-            "200 ml tejszín"
-        ],
-        lepesek: [
-            "Melegítsd elő a sütőt 175 fokra, kend ki a formát a tésztával.",
-            "Villával szúrkáld meg a tészta alját, hogy ne púposodjon.",
-            "Keverd össze: citromlé, héj, cukor, tojás, tejszín.",
-            "Szűrd át szitán, öntsd a tésztára.",
-            "Süsd 35–40 percig: a közepe remegjen, mint a puding.",
-            "Legalább 3 órára hűtőbe, porcukorral tálalva a legjobb."
-        ]
+        leiras: "Friss, savanykás citromkrém omlós tésztában.",
+        hozzavalok: ["1 adag pitetészta", "120 ml citromlé", "1 citrom reszelt héja", "150 g cukor", "3 tojás", "200 ml tejszín"],
+        lepesek: ["Melegítsd elő a sütőt 175 fokra.", "Helyezd a tésztát a piteformába, és szurkáld meg villával.", "Keverd össze a citromlevet, a héjat, a cukrot, a tojásokat és a tejszínt.", "Öntsd a krémet a tésztára.", "Süsd 35–40 percig, majd hűtsd le."]
     },
     macaron: {
         cim: "🌸 Málnás macaron",
-        leiras: "Francia finomság: omlós, rózsaszín, málnás krémmel, kb. 20 darab.",
-        hozzavalok: [
-            "100 g mandulaliszt",
-            "100 g porcukor",
-            "80 g tojásfehérje",
-            "75 g finom kristálycukor",
-            "1 csipet só",
-            "100 g málnalekvár a töltéshez"
-        ],
-        lepesek: [
-            "Szitáld kétszer át a mandulalisztet a porcukorral.",
-            "Verd keményre a fehérjét a sóval, közben fokozatosan add hozzá a cukrot.",
-            "Forgasd össze a kettőt lapátolva – a massza lávásan folyjon le a lapátról.",
-            "Nyomj 3–4 cm-es korongokat sütőpapírra.",
-            "Üsd meg a tálcát az asztalon, pihentesd 30–60 percig.",
-            "Süsd 150 fokon 13–14 percig, kihűlve válaszd le.",
-            "Párosítsd, töltsd lekvárral, éjjelre hűtőbe."
-        ]
+        leiras: "Francia mandulás édesség málnás töltelékkel.",
+        hozzavalok: ["100 g mandulaliszt", "100 g porcukor", "80 g tojásfehérje", "75 g kristálycukor", "100 g málnalekvár"],
+        lepesek: ["Szitáld össze a mandulalisztet és a porcukrot.", "Verd kemény habbá a tojásfehérjét a cukorral.", "Óvatosan forgasd össze a két keveréket.", "Nyomj kis korongokat sütőpapírra, és hagyd pihenni.", "Süsd 150 fokon 13–14 percig, majd kihűlés után töltsd meg lekvárral."]
     },
     kokuszgolyo: {
         cim: "🥥 Kókuszgolyó",
-        leiras: "Kakaós, kókuszos, elronthatatlan klasszikus, kb. 18 darab.",
-        hozzavalok: [
-            "250 g darált keksz",
-            "100 g vaj",
-            "100 g porcukor",
-            "1 evőkanál kakaópor",
-            "50 ml tej",
-            "100 g kókuszreszelék a forgatáshoz"
-        ],
-        lepesek: [
-            "Keverd össze a kekszet, porcukrot, kakaót.",
-            "Add hozzá a vajat és a tejet, gyúrd kézzel összefüggő masszává.",
-            "Ha túl lágy, 15 percre tedd hűtőbe.",
-            "Golyózz, forgasd kókuszreszelékbe.",
-            "Legalább 1 órára hűtőbe – egy hétig eláll!"
-        ]
+        leiras: "Kakaós, kókuszos, egyszerűen elkészíthető klasszikus.",
+        hozzavalok: ["250 g darált keksz", "100 g vaj", "100 g porcukor", "1 evőkanál kakaópor", "50 ml tej", "100 g kókuszreszelék"],
+        lepesek: ["Keverd össze a darált kekszet, a porcukrot és a kakaót.", "Add hozzá a vajat és a tejet.", "Gyúrd össze a masszát.", "Formázz golyókat, majd forgasd meg őket kókuszreszelékben.", "Tedd hűtőbe legalább egy órára."]
     },
     csiga: {
         cim: "🥮 Fahéjas csiga",
-        leiras: "Meleg, puha tekercs fahéjas örvénnyel, kb. 12 darab.",
-        hozzavalok: [
-            "A tésztához:",
-            "500 g finomliszt",
-            "250 ml langyos tej",
-            "50 g vaj",
-            "50 g kristálycukor",
-            "1 tojássárgája",
-            "1 csomag száraz élesztő",
-            "A töltelékhez:",
-            "80 g puha vaj",
-            "100 g barna cukor",
-            "2 teáskanál őrölt fahéj"
-        ],
-        lepesek: [
-            "Csinálj kovászt az élesztőből, langyos tejből, csipet cukorból – 10 percig habosodik.",
-            "Gyúrd össze a tésztát minden hozzávalóval, 1 órán át kelni hagyni.",
-            "Nyújtsd 40×30 cm-es téglalappá, kend meg vajjal, szórd meg fahéjas cukorral.",
-            "Tekerd fel, vágj 12 csigát.",
-            "Hagyd még 30 percet kelni, süsd 180 fokon 20–25 percig.",
-            "Frissen, melegen a legjobb!"
-        ]
+        leiras: "Puha kelt tészta fahéjas-cukros töltelékkel.",
+        hozzavalok: ["500 g liszt", "250 ml langyos tej", "50 g vaj", "50 g cukor", "1 tojássárgája", "1 csomag élesztő", "80 g vaj a töltelékhez", "100 g barna cukor", "2 teáskanál fahéj"],
+        lepesek: ["Futtasd fel az élesztőt a langyos tejben.", "Gyúrd össze a tészta hozzávalóit, majd keleszd egy órán át.", "Nyújtsd ki, kend meg vajjal, és szórd meg fahéjas cukorral.", "Tekerd fel, majd vágd szeletekre.", "Keleszd még 30 percig, és süsd 180 fokon 20–25 percig."]
     }
 };
 
-
-/* Recept betöltése + átváltás a Recept oldalra */
+/* Saját recept megjelenítése */
 function receptMutat(kulcs) {
-    const r = receptek[kulcs];
+    const recept = receptek[kulcs];
+    if (!recept) return;
 
-    document.getElementById("recipe-title").innerHTML = r.cim;
-    document.getElementById("recipe-text").innerHTML = r.leiras;
+    document.getElementById("recipe-title").textContent = recept.cim;
+    document.getElementById("recipe-text").textContent = recept.leiras;
 
-    /* Hozzávalók kiírása: sima ciklussal minden hozzávalóból
-       egy <li> sort fűzünk a lista szövegéhez */
-    let hozzavaloLista = "";
-    for (let i = 0; i < r.hozzavalok.length; i++) {
-        hozzavaloLista = hozzavaloLista + "<li>" + r.hozzavalok[i] + "</li>";
-    }
-    document.getElementById("ingredients").innerHTML = hozzavaloLista;
+    const hozzavalok = document.getElementById("ingredients");
+    const lepesek = document.getElementById("lepesek");
+    hozzavalok.innerHTML = "";
+    lepesek.innerHTML = "";
 
-    /* Lépések kiírása ugyanígy */
-    let lepesLista = "";
-    for (let i = 0; i < r.lepesek.length; i++) {
-        lepesLista = lepesLista + "<li>" + r.lepesek[i] + "</li>";
-    }
-    document.getElementById("lepesek").innerHTML = lepesLista;
+    recept.hozzavalok.forEach(function (elem) {
+        const li = document.createElement("li");
+        li.textContent = elem;
+        hozzavalok.appendChild(li);
+    });
 
-    document.getElementById("result").innerHTML = "";
+    recept.lepesek.forEach(function (elem) {
+        const li = document.createElement("li");
+        li.textContent = elem;
+        lepesek.appendChild(li);
+    });
 
+    document.getElementById("result").textContent = "";
     oldalValtas("recept");
 }
 
-
-/* =========================================================
-   3. ADAGKALKULÁTOR
-   A prompt mindig SZÖVEGET ad vissza → Number() kell! */
+/* 3. Egyszerű adagkalkulátor */
 function adagolas() {
-    let adag = prompt("Hány adagot szeretnél? (Az alaprecept 4 adag.)");
+    const adag = Number(prompt("Hány adagot szeretnél? Az alaprecept 4 adag."));
 
-    if (adag === null) return;  /* Mégse gomb → kilépés */
+    if (!Number.isFinite(adag) || adag <= 0) {
+        document.getElementById("result").textContent = "Kérlek, adj meg egy pozitív számot!";
+        return;
+    }
 
-    adag = Number(adag);
+    const liszt = Math.round(200 * adag / 4);
+    const cukor = Math.round(100 * adag / 4);
+    const tej = Math.round(100 * adag / 4);
 
-    if (isNaN(adag) || adag <= 0) {
-        document.getElementById("result").innerHTML = "Kérlek, adj meg egy pozitív számot!";
-    } else {
-        /* Arányszámítás: alap × (kért adag / 4), Math.round = kerekítés */
-        let liszt = Math.round(200 * adag / 4);
-        let cukor = Math.round(100 * adag / 4);
-        let tej = Math.round(100 * adag / 4);
+    document.getElementById("result").textContent =
+        "A muffin alaprecepthez körülbelül " + liszt + " g liszt, " +
+        cukor + " g cukor és " + tej + " ml tej szükséges.";
+}
 
-        document.getElementById("result").innerHTML =
-            "Ehhez körülbelül " + liszt + " g liszt, " + cukor + " g cukor és " + tej + " ml tej szükséges.";
+/* 4. TheMealDB API
+   A tesztkulcs tanulási és fejlesztési célra használható.
+   Keresés: search.php | Desszertek listája: filter.php | Részletes recept: lookup.php */
+const API_ALAP = "https://www.themealdb.com/api/json/v1/1/";
+const apiCards = document.getElementById("api-cards");
+const apiStatus = document.getElementById("api-status");
+const apiRecipe = document.getElementById("api-recipe");
+
+function apiUzenet(szoveg) {
+    apiStatus.textContent = szoveg;
+}
+
+function kartyakMegjelenitese(etelek) {
+    apiCards.innerHTML = "";
+    apiRecipe.hidden = true;
+    apiRecipe.innerHTML = "";
+
+    if (!etelek || etelek.length === 0) {
+        apiUzenet("Sajnos nem találtam ilyen desszertet. Próbálj másik keresőszót!");
+        return;
+    }
+
+    apiUzenet("Találatok: " + etelek.length + " recept.");
+    etelek.forEach(function (etel) {
+        const kartya = document.createElement("article");
+        kartya.className = "card api-card";
+
+        const kep = document.createElement("img");
+        kep.src = etel.strMealThumb;
+        kep.alt = etel.strMeal;
+        kep.loading = "lazy";
+
+        const cim = document.createElement("h3");
+        cim.textContent = etel.strMeal;
+
+        const gomb = document.createElement("button");
+        gomb.type = "button";
+        gomb.textContent = "Recept megnyitása";
+        gomb.addEventListener("click", function () {
+            receptBetoltes(etel.idMeal);
+        });
+
+        kartya.appendChild(kep);
+        kartya.appendChild(cim);
+        kartya.appendChild(gomb);
+        apiCards.appendChild(kartya);
+    });
+}
+
+async function desszertekBetoltese() {
+    apiUzenet("Desszertek betöltése...");
+    apiCards.innerHTML = "";
+
+    try {
+        const valasz = await fetch(API_ALAP + "filter.php?c=Dessert");
+        if (!valasz.ok) throw new Error("A szerver nem válaszolt megfelelően.");
+        const adat = await valasz.json();
+        kartyakMegjelenitese(adat.meals);
+    } catch (hiba) {
+        apiUzenet("Nem sikerült betölteni a recepteket. Ellenőrizd az internetkapcsolatot, majd próbáld újra!");
+        console.error("TheMealDB API hiba:", hiba);
     }
 }
-/* ==„Miért volt üres a recept oldal?"
-Mert a listák tartalmát JavaScript tölti fel (dinamikusan), HTML-ben üresek voltak,
- és induláskor senki nem hívta meg a betöltő függvényt.
- A javítás: oldalbetöltéskor egyszer meghívjuk a receptBetoltes("muffin")-t.======*/
+
+async function receptekKeresese(keresettSzo) {
+    const keres = keresettSzo.trim();
+    if (keres === "") {
+        apiUzenet("Írj be egy keresőszót!");
+        return;
+    }
+
+    apiUzenet("Keresés folyamatban...");
+    apiCards.innerHTML = "";
+    apiRecipe.hidden = true;
+
+    try {
+        const valasz = await fetch(API_ALAP + "search.php?s=" + encodeURIComponent(keres));
+        if (!valasz.ok) throw new Error("A szerver nem válaszolt megfelelően.");
+        const adat = await valasz.json();
+        kartyakMegjelenitese(adat.meals);
+    } catch (hiba) {
+        apiUzenet("A keresés most nem sikerült. Próbáld újra később!");
+        console.error("TheMealDB keresési hiba:", hiba);
+    }
+}
+
+async function receptBetoltes(azonosito) {
+    apiUzenet("A recept részleteinek betöltése...");
+    apiRecipe.hidden = true;
+
+    try {
+        const valasz = await fetch(API_ALAP + "lookup.php?i=" + encodeURIComponent(azonosito));
+        if (!valasz.ok) throw new Error("A szerver nem válaszolt megfelelően.");
+        const adat = await valasz.json();
+        const etel = adat.meals && adat.meals[0];
+
+        if (!etel) {
+            apiUzenet("Ehhez a recepthez most nem érhető el részletes adat.");
+            return;
+        }
+
+        apiRecipe.innerHTML = "";
+
+        const cim = document.createElement("h2");
+        cim.textContent = etel.strMeal;
+
+        const kep = document.createElement("img");
+        kep.src = etel.strMealThumb;
+        kep.alt = etel.strMeal;
+
+        const leiras = document.createElement("p");
+        leiras.textContent = [etel.strCategory, etel.strArea].filter(Boolean).join(" · ");
+
+        const hozzavaloCim = document.createElement("h3");
+        hozzavaloCim.textContent = "Hozzávalók";
+
+        const hozzavalok = document.createElement("ul");
+        for (let i = 1; i <= 20; i++) {
+            const hozzavalo = etel["strIngredient" + i];
+            const mennyiseg = etel["strMeasure" + i];
+            if (hozzavalo && hozzavalo.trim() !== "") {
+                const li = document.createElement("li");
+                li.textContent = ((mennyiseg || "").trim() + " " + hozzavalo).trim();
+                hozzavalok.appendChild(li);
+            }
+        }
+
+        const elkeszitesCim = document.createElement("h3");
+        elkeszitesCim.textContent = "Elkészítés";
+
+        const elkeszites = document.createElement("p");
+        elkeszites.textContent = etel.strInstructions || "Ehhez a recepthez nincs megadva elkészítési leírás.";
+
+        const vissza = document.createElement("button");
+        vissza.type = "button";
+        vissza.className = "button back-button";
+        vissza.textContent = "Vissza a desszertekhez";
+        vissza.addEventListener("click", function () {
+            apiRecipe.hidden = true;
+            apiCards.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+
+        apiRecipe.appendChild(cim);
+        apiRecipe.appendChild(kep);
+        apiRecipe.appendChild(leiras);
+        apiRecipe.appendChild(hozzavaloCim);
+        apiRecipe.appendChild(hozzavalok);
+        apiRecipe.appendChild(elkeszitesCim);
+        apiRecipe.appendChild(elkeszites);
+        apiRecipe.appendChild(vissza);
+        apiRecipe.hidden = false;
+        apiUzenet("A kiválasztott recept betöltődött.");
+        apiRecipe.scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch (hiba) {
+        apiUzenet("A recept betöltése nem sikerült. Próbáld újra később!");
+        console.error("TheMealDB recept hiba:", hiba);
+    }
+}
+
+/* Keresőmező és gombok eseményei */
+document.getElementById("search-form").addEventListener("submit", function (esemeny) {
+    esemeny.preventDefault();
+    receptekKeresese(document.getElementById("recipe-search").value);
+});
+
+document.getElementById("show-desserts").addEventListener("click", desszertekBetoltese);
+
+/* Induláskor az első saját recept és az API desszertjei töltődnek be. */
+receptMutat("muffin");
+oldalValtas("fooldal");
+desszertekBetoltese();
