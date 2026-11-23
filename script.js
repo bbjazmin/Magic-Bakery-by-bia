@@ -1,8 +1,8 @@
 /* MAGIC BAKERY – JavaScript
-   1. Oldalváltás
-   2. Saját receptek
-   3. Adagkalkulátor
-   4. TheMealDB API – keresés és receptbetöltés
+1. Oldalváltás
+2. Saját receptek
+3. Adagkalkulátor
+4. TheMealDB API – keresés és receptbetöltés
 */
 
 /* 1. Oldalváltó */
@@ -75,9 +75,8 @@ const receptek = {
         leiras: "Puha kelt tészta fahéjas-cukros töltelékkel.",
         hozzavalok: ["500 g liszt", "250 ml langyos tej", "50 g vaj", "50 g cukor", "1 tojássárgája", "1 csomag élesztő", "80 g vaj a töltelékhez", "100 g barna cukor", "2 teáskanál fahéj"],
         lepesek: ["Futtasd fel az élesztőt a langyos tejben.", "Gyúrd össze a tészta hozzávalóit, majd keleszd egy órán át.", "Nyújtsd ki, kend meg vajjal, és szórd meg fahéjas cukorral.", "Tekerd fel, majd vágd szeletekre.", "Keleszd még 30 percig, és süsd 180 fokon 20–25 percig."]
-    }
-};
-palacsinta: {
+    },
+    palacsinta: {
         cim: "🥞 Amerikai palacsinta",
         leiras: "Vastag, puha amerikai palacsinta reggelire vagy desszertnek.",
         hozzavalok: ["200 g liszt", "2 evőkanál cukor", "1 csomag sütőpor", "1 csipet só", "2 tojás", "250 ml tej", "40 g olvasztott vaj"],
@@ -197,6 +196,7 @@ palacsinta: {
         hozzavalok: ["200 g kerekszemű rizs", "8 dl tej", "80 g cukor", "1 csomag vaníliás cukor", "3 tojás", "40 g vaj"],
         lepesek: ["Főzd puhára a rizst a tejben a vajjal és a vaníliás cukorral, majd hagyd langyosra hűlni.", "Keverd habosra a tojásokat a cukorral, majd forgasd bele a rizsbe.", "Töltsd kivajazott sütőtálba.", "Süsd 180 fokon körülbelül 30–35 percig, míg a teteje szépen megpirul."]
     }
+};
 
 /* Saját recept megjelenítése */
 function receptMutat(kulcs) {
