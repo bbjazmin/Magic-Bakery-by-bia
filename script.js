@@ -1,4 +1,4 @@
-* MAGIC BAKERY – JavaScript
+/* MAGIC BAKERY – JavaScript
    1. Oldalváltás
    2. Saját receptek
    3. Adagkalkulátor
